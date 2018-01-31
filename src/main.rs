@@ -3,12 +3,13 @@ use std::io;
 use std::thread;
 use std::process::Command;
 
-#[warn(deprecated)] 
+//#[warn(deprecated)] 
 fn main() {
     let args: Vec<String> = env::args().collect();
     let mut guess = String::new();
-
-    if args.len() == 2 {
+    let stoper = 6000;
+    
+    if args.len() > 1 {
         guess = args[1].clone();
     } else {
         println!("Please loop Commands:");    
@@ -21,6 +22,6 @@ fn main() {
     loop{
         Command::new("sh").arg("-c").arg("date +'%Y/%m/%d %I:%M:%S'").spawn().expect("failed to execute process");
         Command::new("sh").arg("-c").arg(&guess).spawn().expect("failed to execute process");
-        thread::sleep_ms(6000);
+        thread::sleep_ms(stoper);
     }
 }
